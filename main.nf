@@ -2,14 +2,6 @@
 
 nextflow.enable.dsl=2
 
-// === define params
-params.seqmet_pairs="*_{sequence.fasta, metadata.tsv}"
-params.configfile_yaml="*.yaml"
-
-params.docker_image="nextstrain/base:latest"
-params.pathogen_giturl="https://github.com/nextstrain/ncov/archive/refs/heads/master.zip"
-params.s3deploy=""
-
 // === define processes
 
 process ncov_build {
@@ -63,8 +55,15 @@ process ncov_build {
 // === connect workflow
 
 workflow {
-  channel.ofFilePairs(params.seqmet_pairs)
-  | combine(channel.ofPath(params.configfile_yaml)
+  // Check if params do not exist
+  // if ("${params.input}" == "false"){
+  //   error "Error: User must provide a value for the --input parameter"
+  // }
+
+
+  channel.ofFilePairs(params.seqmet_pairs, checkIfExists:true)
+  | combine(channel.ofPath(params.configfile_yaml, checkIfExists:true)
+  | ifEmpty { error "Missing inputs for ${params.seqmet_pairs} or ${params.configfile_yaml}"}
   | ncov_build
   | view
 }
