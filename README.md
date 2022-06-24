@@ -12,6 +12,7 @@ Docs: https://docs.pubweb.cloud/
 
 * [Sample sheets (csv)](https://docs.pubweb.cloud/upload-download/) look almost exactly like Terra's Data.Tables
 * Eventually can upload workflow from https://github.com/FredHutch/PubWeb-resources/ ? 
+  * Retry in Sept 2022
 * `pip3 install pubweb`
 * `pubweb-cli configure-workflow`
 * [MkDocs](https://www.mkdocs.org/) looks like a step up from [sphinx\_rtd\_theme](https://github.com/readthedocs/sphinx_rtd_theme)
